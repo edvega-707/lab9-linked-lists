@@ -1,6 +1,6 @@
 /*
  * Course: COEN 2220 - Programming 2
- * Name: Eduardo D. Vega 
+ * Name: Eduardo D. Vega
  * Lab: Lab 9 - Linked Lists
  * Description: Practice - a linked list of study groups
  * Due date: 10/19/2026
@@ -13,7 +13,6 @@ using namespace std;
 class StudyGroupList
 {
 private:
-    
     // Define a Node with groupCode, meetingRoom, and next.
     struct Node
     {
@@ -36,9 +35,8 @@ public:
         groupCount = 0;
     }
 
-    //  Add a Group to the end of the list.
-
-     void addGroup(const string& newGroupCode, int newMeetingRoom)
+    // Add a Group to the end of the list.
+    void addGroup(const string& newGroupCode, int newMeetingRoom)
     {
         Node *newNode = new Node;
 
@@ -64,8 +62,9 @@ public:
 
         groupCount++;
     }
+
     // Display all groups in the list.
-     void displayGroups() const
+    void displayGroups() const
     {
         Node *currentNode = head;
 
@@ -78,26 +77,59 @@ public:
             currentNode = currentNode->next;
         }
     }
+
     // Return the number of groups in the list.
-     int size() const
+    int size() const
     {
         return groupCount;
     }
+
     // ===== Resolve these TODOs later (Part E) =====
 
-    // TODO (Part E): Write containsGroup as a const member function that searches by group code.
+    // Check if a group with the given group code exists in the list.
+    bool containsGroup(const string& targetGroupCode) const
+    {
+        Node *currentNode = head;
+
+        while (currentNode != nullptr)
+        {
+            if (currentNode->groupCode == targetGroupCode)
+            {
+                return true;
+            }
+
+            currentNode = currentNode->next;
+        }
+
+        return false;
+    }
 };
 
 int main()
 {
     cout << boolalpha;
 
-    // ===== Resolve these TODOs later (Part E) =====
 
-    // TODO (Part E): Create a StudyGroupList object.
-    // TODO (Part E): Add three dummy groups with different codes and room numbers.
-    // TODO (Part E): Display every stored group and print the result of size().
-    // TODO (Part E): Search for one stored group code and one missing group code; print both bool results.
+    // StudyGroupList object.
+    StudyGroupList studyGroups;
+
+    // Add three dummy groups 
+    studyGroups.addGroup("ELEN-3040-A", 315);
+    studyGroups.addGroup("PHYS-3312-B", 204);
+    studyGroups.addGroup("ELEN-4410-C", 118);
+
+    // Display every stored group 
+    studyGroups.displayGroups();
+
+    cout << "Registered groups: "
+         << studyGroups.size() << endl;
+
+    // Test the containsGroup function with two different group codes, one that exists and one that does not.
+    cout << "Contains PHYS-3312-B: "
+         << studyGroups.containsGroup("PHYS-3312-B") << endl;
+
+    cout << "Contains COEN-2220-A: "
+         << studyGroups.containsGroup("COEN-2220-A") << endl;
 
     return 0;
 }
